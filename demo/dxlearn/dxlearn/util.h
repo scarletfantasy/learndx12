@@ -113,6 +113,19 @@ struct Vertex {
     XMFLOAT4 color;
 };
 
+// this is the structure of our constant buffer.
+struct ConstantBuffer {
+    XMFLOAT4 colorMultiplier;
+};
+
+ID3D12DescriptorHeap* mainDescriptorHeap[frameBufferCount]; // this heap will store the descripor to our constant buffer
+ID3D12Resource* constantBufferUploadHeap[frameBufferCount]; // this is the memory on the gpu where our constant buffer will be placed.
+
+ConstantBuffer cbColorMultiplierData; // this is the constant buffer data we will send to the gpu 
+                                        // (which will be placed in the resource we created above)
+
+UINT8* cbColorMultiplierGPUAddress[frameBufferCount]; // this is a pointer to the memory location we get when we map our constant buffer
+
 D3D12_VERTEX_BUFFER_VIEW vertexBufferView; // a structure containing a pointer to the vertex data in gpu memory
                                            // the total size of the buffer, and the size of each element (vertex)
 
